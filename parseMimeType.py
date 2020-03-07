@@ -46,22 +46,22 @@ while(position < len(s)):
     if(s[position] in http_whitespace):
         continue
     parameterName = ''
-    while(position<len(s) and s[position]!='\u003B' and s[position]!='\u003D'):
+    while(position<len(s) and s[position]!=';' and s[position]!='='):
         parameterName += s[position]
         position += 1
     parameterName = parameterName.lower()
     if(position<len(s)):
-        if(s[position]=='\u003B'):
+        if(s[position]==';'):
             continue
         position += 1
     if(position >= len(s)):
         break
     parameterValue = None
-    if(s[position]=='\u0022'):
+    if(s[position]=='"'):
         parameterValue = ''
         position += 1
         while(True):
-            while(position<len(s) and s[position]!='\u0022' and s[position]!='\u005C'):
+            while(position<len(s) and s[position]!='"' and s[position]!='\u005C'):
                 parameterValue += s[position]
                 position += 1
             if(position >= len(s)):
@@ -75,13 +75,13 @@ while(position < len(s)):
                 parameterValue += s[position]
                 position += 1
             else:
-                assert quoteOrBackslash=='\u0022'
+                assert quoteOrBackslash=='"'
                 break
-        while(position<len(s) and s[position]!='\u003B'):
+        while(position<len(s) and s[position]!=';'):
             position += 1
     else:
         parameterValue = ''
-        while(position<len(s) and s[position]!='\u003B'):
+        while(position<len(s) and s[position]!=';'):
             parameterValue += s[position]
             position += 1
         for i in range(len(parameterValue)-1, -1, -1):
